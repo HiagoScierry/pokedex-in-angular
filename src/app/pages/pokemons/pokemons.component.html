@@ -1,5 +1,15 @@
 <div class="container">
   <h1>Pokedex</h1>
+
+  <div class="search">
+    <input type="text" [(ngModel)]="search">
+    <i class="material-icons" (click)="filterName()">Pesquisar</i>
+  </div>
+
+  <ul>
+    <li *ngFor="let type of types">{{type}}</li>
+  </ul>
+
   <ul class="pokedex">
     <li *ngFor="let pokemon of pokemons" class="card {{ pokemon.types[0] }}" routerLink="/details/{{pokemon?.id}}">
       <img *ngIf="pokemon.id" class="card-image" src="https://cdn.traction.one/pokedex/pokemon/{{pokemon.id}}.png"
