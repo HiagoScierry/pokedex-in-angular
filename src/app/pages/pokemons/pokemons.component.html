@@ -6,9 +6,11 @@
     <i class="material-icons" (click)="filterName()">Pesquisar</i>
   </div>
 
-  <ul>
-    <li *ngFor="let type of types">{{type}}</li>
-  </ul>
+  <div class="type">
+    <select [(ngModel)]="selectedType" (change)="filterType()">
+      <option *ngFor="let item of types">{{item}}</option>
+    </select>
+  </div>
 
   <ul class="pokedex">
     <li *ngFor="let pokemon of pokemons" class="card {{ pokemon.types[0] }}" routerLink="/details/{{pokemon?.id}}">

@@ -1,1 +1,30 @@
-<p>pokemon-detail works!</p>
+<div class="fundo">
+
+  <div *ngIf="poke" class="container {{ poke.types[0] }}">
+    <div class="ball">
+      <img *ngIf="poke.id" class="card-image" src="https://cdn.traction.one/pokedex/pokemon/{{poke.id}}.png" alt="">
+
+      <h1 class="card-title">
+        {{poke.name}}
+      </h1>
+      <span *ngFor="let type of poke.types" class="{{type}}-type">{{type}}</span>
+    </div>
+    <div class="statics">
+
+      <div class="table">
+        <div *ngFor="let atribute of poke.stats" class="atributes">
+
+          <div class="atribute-name">{{atribute.stat.name}} </div>
+
+          <div class="barra-capsula">
+            <div class="barra {{ poke.types[0] }}-type" style='width: calc(({{atribute.base_stat}}% / 2);'>
+              {{atribute.base_stat}}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

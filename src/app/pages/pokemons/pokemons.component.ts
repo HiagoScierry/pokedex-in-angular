@@ -13,6 +13,7 @@ export class PokemonsComponent implements OnInit {
   pokemons: Pokemon[] = []
   types: string[] = []
   @Input() search?: string;
+  @Input() selectedType?: string;
 
 
 
@@ -28,7 +29,7 @@ export class PokemonsComponent implements OnInit {
   async getTypes() {
     const types = await this.pokemonService.getTypes();
 
-    this.types = types.results.map((index: { name: string; }) => index.name)
+    this.types = ['all', ...types.results.map((index: { name: string; }) => index.name)]
   }
 
   async getPokemons(): Promise<Pokemon[]> {
@@ -53,12 +54,19 @@ export class PokemonsComponent implements OnInit {
 
   }
 
-  async filterType(type: string) {
+  async filterType() {
+    this.search = '';
+
+    if (this.selectedType === 'all') {
+      this.pokemons = await this.getPokemons();
+      return
+    }
     const pokemon = await this.getPokemons()
-    this.pokemons = pokemon.filter((index: any) => index.types.includes(type))
+    this.pokemons = pokemon.filter((index: any) => index.types.includes(this.selectedType))
   }
 
   async filterName() {
+    this.selectedType = 'all';
     const pokemon = await this.getPokemons()
     this.pokemons = pokemon.filter((index: any): boolean => {
       const match = index.name.match(this.search);
